@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIM TRANS | Luxury Beyond Dreams</title>
+    <meta name="description" content="Melayani perjalanan wisata, study tour, ziarah, perjalanan dinas, dan berbagai kebutuhan transportasi dengan armada premium, aman, nyaman, dan terpercaya.">
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        bim: {
+                            red: '#E60000',
+                            redDark: '#B30000',
+                            silver: '#C0C0C0',
+                            dark: '#111111',
+                            light: '#F8F9FA'
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'premium': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F9FA;
+            color: #333;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .glass-dark {
+            background: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Scroll Animation Utilities */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Overlay Gradient */
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(17,17,17,0.8) 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E60000; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B30000; 
+        }
+
+        /* Floating WhatsApp */
+        .float-wa {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        /* Image hover effect */
+        .img-hover-zoom {
+            overflow: hidden;
+        }
+        .img-hover-zoom img {
+            transition: transform .5s ease;
+        }
+        .img-hover-zoom:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Lightbox styles */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+        #lightbox.active {
+            display: flex;
+        }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass-dark py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center gap-2">
+                        <img class="h-12 w-auto object-contain bg-white rounded p-1" src="LOGO & STEMPEL BIM TRANS.png" alt="BIM TRANS Logo">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#beranda" class="text-white hover:text-bim-red transition-colors font-medium">Beranda</a>
+                    <a href="#armada" class="text-white hover:text-bim-red transition-colors font-medium">Armada</a>
+                    <a href="#tentang" class="text-white hover:text-bim-red transition-colors font-medium">Tentang Kami</a>
+                    <a href="#galeri" class="text-white hover:text-bim-red transition-colors font-medium">Galeri</a>
+                    <a href="#kontak" class="text-white hover:text-bim-red transition-colors font-medium">Kontak</a>
+                    <a href="https://wa.me/6285183083387" target="_blank" class="bg-bim-red hover:bg-bim-redDark text-white px-6 py-2 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Pesan Sekarang
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-bim-red focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="md:hidden hidden bg-bim-dark w-full absolute top-full left-0 border-t border-gray-800">
+            <div class="px-4 pt-2 pb-6 space-y-2 shadow-xl">
+                <a href="#beranda" class="mobile-link block px-3 py-3 text-white hover:bg-gray-800 rounded-md font-medium border-b border-gray-800">Beranda</a>
+                <a href="#armada" class="mobile-link block px-3 py-3 text-white hover:bg-gray-800 rounded-md font-medium border-b border-gray-800">Armada</a>
+                <a href="#tentang" class="mobile-link block px-3 py-3 text-white hover:bg-gray-800 rounded-md font-medium border-b border-gray-800">Tentang Kami</a>
+                <a href="#galeri" class="mobile-link block px-3 py-3 text-white hover:bg-gray-800 rounded-md font-medium border-b border-gray-800">Galeri</a>
+                <a href="#kontak" class="mobile-link block px-3 py-3 text-white hover:bg-gray-800 rounded-md font-medium border-b border-gray-800">Kontak</a>
+                <a href="https://wa.me/6285183083387" target="_blank" class="block w-full text-center mt-4 bg-bim-red hover:bg-bim-redDark text-white px-6 py-3 rounded-md font-semibold transition-colors">
+                    Pesan Sekarang
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="PROMOSI BIM TRANS.jpg" alt="BIM TRANS Premium Bus" class="w-full h-full object-cover object-center filter brightness-75">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16 reveal">
+            <span class="inline-block py-1 px-3 rounded-full bg-bim-red/20 border border-bim-red/50 text-white text-sm font-semibold tracking-wider mb-4 backdrop-blur-sm">PREMIUM TRANSPORTATION</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-2 tracking-tight drop-shadow-lg">
+                BIM <span class="text-bim-red">TRANS</span>
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-light text-gray-200 mb-6 italic">
+                "Luxury Beyond Dreams"
+            </h2>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto font-light leading-relaxed drop-shadow-md">
+                Melayani perjalanan wisata, study tour, ziarah, perjalanan dinas, dan berbagai kebutuhan transportasi dengan armada premium, aman, nyaman, dan terpercaya.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://wa.me/6285183083387" target="_blank" class="bg-bim-red hover:bg-bim-redDark text-white px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-lg hover:shadow-[0_0_20px_rgba(230,0,0,0.5)] flex items-center justify-center gap-2 group">
+                    <i class="fab fa-whatsapp text-xl group-hover:scale-110 transition-transform"></i> Hubungi Admin
+                </a>
+                <a href="#armada" class="glass hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all flex items-center justify-center gap-2">
+                    Lihat Armada <i class="fas fa-arrow-down text-sm"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+            <a href="#keunggulan" class="text-white/70 hover:text-white transition-colors">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Keunggulan Section -->
+    <section id="keunggulan" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-bim-dark mb-4">Mengapa Memilih Kami?</h2>
+                <div class="w-24 h-1 bg-bim-red mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-premium border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal text-center group">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-bim-red transition-colors duration-300">
+                        <i class="fas fa-bus text-2xl text-bim-red group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Armada Premium</h3>
+                    <p class="text-gray-600 leading-relaxed">Bus terawat dengan fasilitas lengkap dan kenyamanan maksimal standar kelas VIP.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-premium border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal text-center group" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-bim-red transition-colors duration-300">
+                        <i class="fas fa-user-tie text-2xl text-bim-red group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Driver Profesional</h3>
+                    <p class="text-gray-600 leading-relaxed">Pengemudi berpengalaman, tersertifikasi, ramah, dan selalu mengutamakan keselamatan.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-premium border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal text-center group" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-bim-red transition-colors duration-300">
+                        <i class="fas fa-tags text-2xl text-bim-red group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Harga Kompetitif</h3>
+                    <p class="text-gray-600 leading-relaxed">Penawaran harga terbaik yang sepadan dengan kualitas pelayanan premium kami.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-premium border border-gray-100 hover:-translate-y-2 transition-transform duration-300 reveal text-center group" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-bim-red transition-colors duration-300">
+                        <i class="fas fa-headset text-2xl text-bim-red group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Pelayanan 24 Jam</h3>
+                    <p class="text-gray-600 leading-relaxed">Tim support kami siap membantu kebutuhan perjalanan dan reservasi Anda kapan saja.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Armada Section -->
+    <section id="armada" class="py-20 bg-bim-light relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-bim-red font-semibold tracking-wider uppercase text-sm">Pilihan Kendaraan</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-bim-dark mb-4 mt-2">Armada Eksklusif Kami</h2>
+                <div class="w-24 h-1 bg-bim-red mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Kami menyediakan berbagai pilihan bus pariwisata kelas premium yang siap memenuhi standar kenyamanan perjalanan Anda.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Armada 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-premium group reveal">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="MINA BIM TRANS-1479.jpg" alt="Eksterior Jet Bus 3+ Hijau Mina" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 lazy">
+                        <div class="absolute top-4 right-4 bg-bim-red text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                            <i class="fas fa-star text-yellow-300 mr-1"></i> Luxury Class
+                        </div>
+                    </div>
+                    <div class="p-6 border-t-4 border-bim-red">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800">Jet Bus 3+</h3>
+                                <p class="text-sm text-gray-500 font-medium">(Hijau - Unit Mina)</p>
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded-lg text-center">
+                                <span class="block text-xl font-bold text-bim-red">60</span>
+                                <span class="text-xs text-gray-600 font-medium">Seats</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3 mb-6">
+                            <h4 class="font-semibold text-gray-800 border-b pb-2">Fasilitas:</h4>
+                            <ul class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-snowflake text-blue-500 w-5"></i> Full AC</li>
+                                <li class="flex items-center"><i class="fas fa-chair text-amber-600 w-5"></i> Reclining Seat</li>
+                                <li class="flex items-center"><i class="fas fa-tv text-gray-700 w-5"></i> Audio Video</li>
+                                <li class="flex items-center"><i class="fas fa-suitcase text-amber-800 w-5"></i> Bagasi Luas</li>
+                                <li class="flex items-center"><i class="fas fa-microphone text-purple-500 w-5"></i> Karaoke</li>
+                                <li class="flex items-center"><i class="fas fa-lightbulb text-yellow-500 w-5"></i> Reading Light</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://wa.me/6285183083387?text=Halo%20BIM%20TRANS,%20saya%20ingin%20bertanya%20tentang%20sewa%20Jet%20Bus%203+%20Hijau%20(Unit%20Mina)." target="_blank" class="block w-full text-center border-2 border-bim-red text-bim-red hover:bg-bim-red hover:text-white py-3 rounded-xl font-semibold transition-colors">
+                            Cek Ketersediaan
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Armada 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-premium group reveal" style="transition-delay: 100ms;">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="IMG_1497.jpg" alt="Eksterior Jet Bus 3+ Abu Abu" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 lazy">
+                        <div class="absolute top-4 right-4 bg-bim-red text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                            <i class="fas fa-star text-yellow-300 mr-1"></i> Luxury Class
+                        </div>
+                    </div>
+                    <div class="p-6 border-t-4 border-bim-red">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800">Jet Bus 3+</h3>
+                                <p class="text-sm text-gray-500 font-medium">(Abu-Abu - Unit Arafah)</p>
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded-lg text-center">
+                                <span class="block text-xl font-bold text-bim-red">60</span>
+                                <span class="text-xs text-gray-600 font-medium">Seats</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3 mb-6">
+                            <h4 class="font-semibold text-gray-800 border-b pb-2">Fasilitas:</h4>
+                            <ul class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-snowflake text-blue-500 w-5"></i> Full AC</li>
+                                <li class="flex items-center"><i class="fas fa-chair text-amber-600 w-5"></i> Reclining Seat</li>
+                                <li class="flex items-center"><i class="fas fa-tv text-gray-700 w-5"></i> Audio Video</li>
+                                <li class="flex items-center"><i class="fas fa-suitcase text-amber-800 w-5"></i> Bagasi Luas</li>
+                                <li class="flex items-center"><i class="fas fa-microphone text-purple-500 w-5"></i> Karaoke</li>
+                                <li class="flex items-center"><i class="fas fa-lightbulb text-yellow-500 w-5"></i> Reading Light</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://wa.me/6285183083387?text=Halo%20BIM%20TRANS,%20saya%20ingin%20bertanya%20tentang%20sewa%20Jet%20Bus%203+%20Abu-Abu." target="_blank" class="block w-full text-center border-2 border-bim-red text-bim-red hover:bg-bim-red hover:text-white py-3 rounded-xl font-semibold transition-colors">
+                            Cek Ketersediaan
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Armada 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-premium group reveal" style="transition-delay: 200ms;">
+                    <div class="relative h-64 overflow-hidden bg-gray-200 flex items-center justify-center">
+                        <img src="BIM Trans (1 of 18).jpg" alt="Eksterior Jet Bus 3 Merah" class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 lazy">
+                        <div class="absolute top-4 right-4 bg-bim-red text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                            <i class="fas fa-star text-yellow-300 mr-1"></i> Executive Class
+                        </div>
+                    </div>
+                    <div class="p-6 border-t-4 border-gray-800">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800">Jet Bus 3</h3>
+                                <p class="text-sm text-gray-500 font-medium">(Merah)</p>
+                            </div>
+                            <div class="bg-gray-100 px-3 py-1 rounded-lg text-center">
+                                <span class="block text-xl font-bold text-bim-red">39</span>
+                                <span class="text-xs text-gray-600 font-medium">Seats</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3 mb-6">
+                            <h4 class="font-semibold text-gray-800 border-b pb-2">Fasilitas:</h4>
+                            <ul class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                <li class="flex items-center"><i class="fas fa-snowflake text-blue-500 w-5"></i> Full AC</li>
+                                <li class="flex items-center"><i class="fas fa-chair text-amber-600 w-5"></i> Reclining Seat</li>
+                                <li class="flex items-center"><i class="fas fa-tv text-gray-700 w-5"></i> Audio Video</li>
+                                <li class="flex items-center"><i class="fas fa-suitcase text-amber-800 w-5"></i> Bagasi Luas</li>
+                                <li class="flex items-center"><i class="fas fa-microphone text-purple-500 w-5"></i> Karaoke</li>
+                                <li class="flex items-center"><i class="fas fa-lightbulb text-yellow-500 w-5"></i> Reading Light</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="https://wa.me/6285183083387?text=Halo%20BIM%20TRANS,%20saya%20ingin%20bertanya%20tentang%20sewa%20Jet%20Bus%203%20Merah." target="_blank" class="block w-full text-center border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white py-3 rounded-xl font-semibold transition-colors">
+                            Cek Ketersediaan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami & Counter -->
+    <section id="tentang" class="py-20 bg-white relative overflow-hidden">
+        <!-- Dekorasi latar -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-red-50 opacity-50"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-gray-50 opacity-50"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Text Content -->
+                <div class="lg:w-1/2 reveal">
+                    <span class="text-bim-red font-semibold tracking-wider uppercase text-sm">Tentang Kami</span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-bim-dark mb-6 mt-2 leading-tight">Mengapa Memilih <br><span class="text-bim-red">BIM TRANS?</span></h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6 text-justify">
+                        BIM TRANS hadir sebagai penyedia jasa transportasi terpercaya dengan komitmen memberikan pengalaman perjalanan yang aman, nyaman, dan berkelas.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8 text-justify">
+                        Dengan armada yang selalu terawat, fasilitas modern, serta didukung oleh pelayanan profesional dari tim kami, kami siap menjadi partner perjalanan terbaik untuk berbagai kebutuhan transportasi Anda, mulai dari wisata hingga perjalanan dinas.
+                    </p>
+                    
+                    <div class="flex items-center gap-4 border-l-4 border-bim-red pl-4 py-2 bg-gray-50 rounded-r-lg">
+                        <i class="fas fa-quote-left text-2xl text-gray-300"></i>
+                        <p class="text-gray-800 font-medium italic">"Kepuasan dan keselamatan Anda adalah prioritas utama kami."</p>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="lg:w-1/2 grid grid-cols-2 gap-6 w-full">
+                    <div class="bg-white p-8 rounded-2xl shadow-premium border border-gray-100 text-center reveal" style="transition-delay: 100ms;">
+                        <div class="text-4xl mb-2 text-bim-red"><i class="fas fa-bus-alt"></i></div>
+                        <div class="text-4xl font-bold text-bim-dark mb-1 counter" data-target="3">0</div>
+                        <p class="text-gray-500 font-medium uppercase tracking-wide text-sm">Unit Armada</p>
+                    </div>
+                    
+                    <div class="bg-bim-red p-8 rounded-2xl shadow-premium border border-red-600 text-center text-white reveal" style="transition-delay: 200ms;">
+                        <div class="text-4xl mb-2 text-red-200"><i class="fas fa-route"></i></div>
+                        <div class="text-4xl font-bold mb-1 flex justify-center items-center"><span class="counter" data-target="1000">0</span>+</div>
+                        <p class="text-red-100 font-medium uppercase tracking-wide text-sm">Perjalanan</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-8 rounded-2xl shadow-premium border border-gray-800 text-center text-white reveal" style="transition-delay: 300ms;">
+                        <div class="text-4xl mb-2 text-gray-400"><i class="fas fa-users"></i></div>
+                        <div class="text-4xl font-bold mb-1 flex justify-center items-center"><span class="counter" data-target="500">0</span>+</div>
+                        <p class="text-gray-300 font-medium uppercase tracking-wide text-sm">Pelanggan Puas</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-2xl shadow-premium border border-gray-100 text-center reveal" style="transition-delay: 400ms;">
+                        <div class="text-4xl mb-2 text-bim-red"><i class="fas fa-clock"></i></div>
+                        <div class="text-4xl font-bold text-bim-dark mb-1">24/7</div>
+                        <p class="text-gray-500 font-medium uppercase tracking-wide text-sm">Customer Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Section -->
+    <section id="galeri" class="py-20 bg-bim-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-bim-red font-semibold tracking-wider uppercase text-sm">Dokumentasi</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-bim-dark mb-4 mt-2">Galeri Armada Kami</h2>
+                <div class="w-24 h-1 bg-bim-red mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Intip kemewahan dan kenyamanan interior armada bus kami yang dirancang khusus untuk perjalanan Anda.</p>
+            </div>
+
+            <!-- Slider Gallery -->
+            <div class="relative w-full max-w-5xl mx-auto overflow-hidden group reveal">
+                <!-- Slides Container -->
+                <div id="gallery-slider" class="flex transition-transform duration-500 ease-in-out w-full">
+                    
+                    <!-- Slide 1 -->
+                    <div class="w-full flex-shrink-0 grid grid-cols-2 gap-2 md:gap-6 px-4">
+                        <div class="rounded-xl overflow-hidden shadow-md img-hover-zoom cursor-pointer relative" onclick="openLightbox('Interior BIM TRANS-1401.jpg')">
+                            <img src="Interior BIM TRANS-1401.jpg" alt="Interior Depan Bus" class="w-full h-40 md:h-72 object-cover lazy">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fas fa-search-plus text-white text-3xl"></i>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden shadow-md img-hover-zoom cursor-pointer relative" onclick="openLightbox('Interior BIM TRANS-1570.jpg')">
+                            <img src="Interior BIM TRANS-1570.jpg" alt="Seat Penumpang" class="w-full h-40 md:h-72 object-cover lazy">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fas fa-search-plus text-white text-3xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="w-full flex-shrink-0 grid grid-cols-2 gap-2 md:gap-6 px-4">
+                        <div class="rounded-xl overflow-hidden shadow-md img-hover-zoom cursor-pointer relative" onclick="openLightbox('Interior BIM TRANS-1420.jpg')">
+                            <img src="Interior BIM TRANS-1420.jpg" alt="Fasilitas AC dan Lampu" class="w-full h-40 md:h-72 object-cover lazy">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fas fa-search-plus text-white text-3xl"></i>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden shadow-md img-hover-zoom cursor-pointer relative" onclick="openLightbox('Interior BIM TRANS-1568.jpg')">
+                            <img src="Interior BIM TRANS-1568.jpg" alt="Lorong Bus" class="w-full h-40 md:h-72 object-cover lazy">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fas fa-search-plus text-white text-3xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="w-full flex-shrink-0 grid grid-cols-2 gap-2 md:gap-6 px-4">
+                        <div class="rounded-xl overflow-hidden shadow-md img-hover-zoom cursor-pointer relative" onclick="openLightbox('Interior BIM TRANS-1404.jpg')">
+                            <img src="Interior BIM TRANS-1404.jpg" alt="Detail Seat" class="w-full h-40 md:h-72 object-cover lazy">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fas fa-search-plus text-white text-3xl"></i>
+                            </div>
+                        </div>
+                        <div class="rounded-xl overflow-hidden shadow-md img-hover-zoom cursor-pointer relative" onclick="openLightbox('Interior BIM TRANS-1571.jpg')">
+                            <img src="Interior BIM TRANS-1571.jpg" alt="Pemandangan Belakang" class="w-full h-40 md:h-72 object-cover lazy">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i class="fas fa-search-plus text-white text-3xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button id="prevSlide" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-bim-red text-bim-dark hover:text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10 ml-2">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="nextSlide" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-bim-red text-bim-dark hover:text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10 mr-2">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Indicators -->
+                <div class="flex justify-center mt-8 space-x-3" id="slider-dots">
+                    <button class="w-3 h-3 rounded-full bg-bim-red transition-colors" data-slide="0"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors" data-slide="1"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors" data-slide="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call To Action Section -->
+    <section class="py-20 relative overflow-hidden bg-bim-red">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center reveal">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-md">Siap Menemani Perjalanan Anda?</h2>
+            <p class="text-red-100 text-lg md:text-xl mb-10 max-w-3xl mx-auto font-light">
+                Hubungi kami sekarang dan dapatkan pelayanan transportasi premium terbaik dari BIM TRANS dengan harga penawaran spesial.
+            </p>
+            <a href="https://wa.me/6285183083387" target="_blank" class="inline-flex items-center justify-center gap-3 bg-white text-bim-red hover:bg-gray-100 px-10 py-5 rounded-full font-bold text-xl transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+                <i class="fab fa-whatsapp text-3xl text-green-500"></i> Pesan Sekarang Via WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-bim-dark text-white pt-20 pb-10 border-t-4 border-bim-red">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="lg:col-span-1">
+                    <img src="LOGO & STEMPEL BIM TRANS.png" alt="BIM TRANS Logo" class="h-16 w-auto bg-white rounded p-2 mb-6">
+                    <p class="text-gray-400 mb-6 italic border-l-2 border-bim-red pl-3">"Luxury Beyond Dreams"</p>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Penyedia jasa transportasi bus pariwisata premium yang mengutamakan keselamatan, kenyamanan, dan kepuasan pelanggan.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-bim-red hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-bim-red hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-bim-red hover:text-white transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white relative inline-block">
+                        Menu Navigasi
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-bim-red -mb-2"></span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li><a href="#beranda" class="text-gray-400 hover:text-bim-red transition-colors flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-bim-red"></i> Beranda</a></li>
+                        <li><a href="#keunggulan" class="text-gray-400 hover:text-bim-red transition-colors flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-bim-red"></i> Keunggulan</a></li>
+                        <li><a href="#armada" class="text-gray-400 hover:text-bim-red transition-colors flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-bim-red"></i> Armada Kami</a></li>
+                        <li><a href="#tentang" class="text-gray-400 hover:text-bim-red transition-colors flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-bim-red"></i> Tentang Kami</a></li>
+                        <li><a href="#galeri" class="text-gray-400 hover:text-bim-red transition-colors flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-bim-red"></i> Galeri</a></li>
+                    </ul>
+                </div>
+
+                <!-- Layanan -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white relative inline-block">
+                        Layanan Kami
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-bim-red -mb-2"></span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li class="text-gray-400 flex items-center"><i class="fas fa-check text-xs mr-2 text-green-500"></i> Bus Pariwisata</li>
+                        <li class="text-gray-400 flex items-center"><i class="fas fa-check text-xs mr-2 text-green-500"></i> Study Tour</li>
+                        <li class="text-gray-400 flex items-center"><i class="fas fa-check text-xs mr-2 text-green-500"></i> Perjalanan Ziarah</li>
+                        <li class="text-gray-400 flex items-center"><i class="fas fa-check text-xs mr-2 text-green-500"></i> Corporate Gathering</li>
+                        <li class="text-gray-400 flex items-center"><i class="fas fa-check text-xs mr-2 text-green-500"></i> Drop Bandara / Hotel</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-white relative inline-block">
+                        Hubungi Kami
+                        <span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-bim-red -mb-2"></span>
+                    </h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-bim-red mt-1 mr-3 text-lg w-5 text-center"></i>
+                            <span class="text-gray-400 text-sm">Jl. Raya Transportasi No. 123, Kota Utama, Indonesia 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-whatsapp text-bim-red mr-3 text-lg w-5 text-center"></i>
+                            <a href="https://wa.me/6285183083387" target="_blank" class="text-gray-400 hover:text-white transition-colors text-lg font-semibold">0851-8308-3387</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-bim-red mr-3 text-lg w-5 text-center"></i>
+                            <a href="mailto:info@bimtrans.com" class="text-gray-400 hover:text-white transition-colors">info@bimtrans.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2026 BIM TRANS. All Rights Reserved.
+                </p>
+                <p class="text-gray-500 text-sm">
+                    Designed with <i class="fas fa-heart text-bim-red mx-1"></i> for Premium Transportation.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6285183083387" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-[0_4px_14px_0_rgba(34,197,94,0.5)] z-50 hover:bg-green-600 transition-colors float-wa group">
+        <i class="fab fa-whatsapp"></i>
+        <!-- Tooltip -->
+        <span class="absolute right-20 bg-gray-900 text-white text-sm px-3 py-1.5 rounded shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            Hubungi via WhatsApp
+            <!-- Arrow -->
+            <svg class="absolute text-gray-900 h-2 w-full left-0 top-1/2 -translate-y-1/2 -ml-2" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"/></svg>
+        </span>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('glass-dark', 'shadow-lg');
+                    navbar.classList.remove('py-3');
+                    navbar.classList.add('py-1');
+                } else {
+                    // Hanya tambahkan glass-dark jika tidak di bagian paling atas
+                    // tapi biarkan dasar glassmorphism
+                    navbar.classList.add('py-3');
+                    navbar.classList.remove('py-1', 'shadow-lg');
+                }
+            });
+
+            // 2. Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const icon = mobileBtn.querySelector('i');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('hidden');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            }
+
+            mobileBtn.addEventListener('click', toggleMenu);
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            // 3. Scroll Reveal Animation
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 100;
+                    
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    }
+                }
+            }
+            window.addEventListener("scroll", reveal);
+            reveal(); // Trigger once on load
+
+            // 4. Counter Animation
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // The lower the slower
+
+            const startCounters = () => {
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 10);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+
+                    // Only animate if element is in viewport
+                    const rect = counter.getBoundingClientRect();
+                    if(rect.top < window.innerHeight && counter.innerText == '0') {
+                        updateCount();
+                    }
+                });
+            }
+            window.addEventListener('scroll', startCounters);
+        
+        // 5. Smooth Scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                
+                // Menangani href yang hanya berisi "#"
+                if (targetId === '#') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    return;
+                }
+                
+                // Menangani href dengan ID yang valid (contoh: "#armada")
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 6. Lazy Loading Images Fallback
+            // Native loading="lazy" is already used in HTML, this is just to ensure images 
+            // show properly if they load fast enough before scrolling
+            const lazyImages = document.querySelectorAll('img.lazy');
+            lazyImages.forEach(img => {
+                img.src = img.src; // trigger load
+                img.classList.remove('lazy');
+            });
+        });
+
+        // 7. Lightbox Functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(imageSrc) {
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close lightbox on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape" && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        // 8. Gallery Slider Logic
+        const slider = document.getElementById('gallery-slider');
+        const prevSlideBtn = document.getElementById('prevSlide');
+        const nextSlideBtn = document.getElementById('nextSlide');
+        const dots = document.querySelectorAll('#slider-dots button');
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateSlider() {
+            if (!slider) return;
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.remove('bg-gray-300');
+                    dot.classList.add('bg-bim-red');
+                } else {
+                    dot.classList.remove('bg-bim-red');
+                    dot.classList.add('bg-gray-300');
+                }
+            });
+        }
+
+        if(nextSlideBtn && prevSlideBtn) {
+            nextSlideBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            });
+
+            prevSlideBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            });
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateSlider();
+                });
+            });
+
+            // Optional Auto Slide
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
